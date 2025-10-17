@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_61338bc9effea8beae3b12fb22977d61 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+     bottom: 20px; left: 20px; width: 270px; z-index:9999; font-size:14px;
+     background: white; padding: 10px 12px; border: 2px solid #444; border-radius: 8px;">
+<b>Filtres & Légende</b><br>
+<i>Active/désactive les couches à droite.</i><br><br>
+<b>Marée</b><br>
+<span style="color:#1E90FF;">■</span> Montante &nbsp;&nbsp;
+<span style="color:#800080;">■</span> Descendante &nbsp;&nbsp;
+<span style="color:#228B22;">■</span> Renverse<br><br>
+<b>Leurres</b><br>
+<span style="color:#FFA500;">■</span> Surface &nbsp;&nbsp;
+<span style="color:#8B0000;">■</span> Souple &nbsp;&nbsp;
+<span style="color:#5F9EA0;">■</span> Plongeant<br><br>
+<small>Astuce: n’active qu’un groupe (Marée OU Leurre) pour éviter les doublons visuels.</small>
+</div>
+    
+            <div class="folium-map" id="map_61338bc9effea8beae3b12fb22977d61" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_61338bc9effea8beae3b12fb22977d61 = L.map(
+                "map_61338bc9effea8beae3b12fb22977d61",
+                {
+                    center: [48.74, -3.57],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 11,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_61338bc9effea8beae3b12fb22977d61);
+
+            
+
+        
+    
+            var tile_layer_9589f0b074bab2eae3af819697958f62 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var tile_layer_6af33afe1099f1744ade53a03ad38684 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_f7049fa995432e9b3eb8ab9f9cc2e02c = new L.Control.MiniMap(
+                tile_layer_6af33afe1099f1744ade53a03ad38684,
+                {"autoToggleDisplay": false, "centerFixed": false, "collapsedHeight": 25, "collapsedWidth": 25, "height": 150, "minimized": false, "position": "bottomright", "toggleDisplay": true, "width": 150, "zoomAnimation": false, "zoomLevelOffset": -5}
+            );
+            map_61338bc9effea8beae3b12fb22977d61.addControl(mini_map_f7049fa995432e9b3eb8ab9f9cc2e02c);
+        
+    
+            var measure_control_470e2d1a165aadf47dda935c6a1986df = new L.Control.Measure(
+                {"position": "topright", "primaryAreaUnit": "sqmeters", "primaryLengthUnit": "meters", "secondaryAreaUnit": "hectares", "secondaryLengthUnit": "kilometers"});
+            map_61338bc9effea8beae3b12fb22977d61.addControl(measure_control_470e2d1a165aadf47dda935c6a1986df);
+
+        
+    
+            var feature_group_cc7d32020e2e02ebd5746ab15081b7a9 = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_4e7edf6e44cd9c540d6f01ae3c243c30 = L.marker(
+                [48.73139, -3.56444],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_1b682c04071ecac9888340b5e8b575fe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_4e7edf6e44cd9c540d6f01ae3c243c30.setIcon(icon_1b682c04071ecac9888340b5e8b575fe);
+        
+    
+        var popup_6359e7f65f755c2c73da4efc896706df = L.popup({"maxWidth": "100%"});
+
+        
+            var html_02f8e347f03403d7be83efa771fa1c6b = $(`<div id="html_02f8e347f03403d7be83efa771fa1c6b" style="width: 100.0%; height: 100.0%;"><b>Pointe du Dourven</b><br><b>Coord:</b> 48.731390, -3.564440<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Souple<br><i>Coordonnée Google Earth (utilisateur). Pleine mer/montante; souples entre les rochers.</i></div>`)[0];
+            popup_6359e7f65f755c2c73da4efc896706df.setContent(html_02f8e347f03403d7be83efa771fa1c6b);
+        
+
+        marker_4e7edf6e44cd9c540d6f01ae3c243c30.bindPopup(popup_6359e7f65f755c2c73da4efc896706df)
+        ;
+
+        
+    
+    
+            marker_4e7edf6e44cd9c540d6f01ae3c243c30.bindTooltip(
+                `<div>
+                     Pointe du Dourven • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4d790e7392c5e32e5a07486e77c6ccce = L.marker(
+                [48.68917, -3.57972],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_889a40658ffb56cbcb56d4a3cfde5340 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_4d790e7392c5e32e5a07486e77c6ccce.setIcon(icon_889a40658ffb56cbcb56d4a3cfde5340);
+        
+    
+        var popup_97b402779713b6a164d6ce36c27637c4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f7dd772518c13c4954a0540c3d2d9f40 = $(`<div id="html_f7dd772518c13c4954a0540c3d2d9f40" style="width: 100.0%; height: 100.0%;"><b>Plage Ste-Marguerite</b><br><b>Coord:</b> 48.689170, -3.579720<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Montante au pied des falaises; surface au clapot, LS entre failles.</i></div>`)[0];
+            popup_97b402779713b6a164d6ce36c27637c4.setContent(html_f7dd772518c13c4954a0540c3d2d9f40);
+        
+
+        marker_4d790e7392c5e32e5a07486e77c6ccce.bindPopup(popup_97b402779713b6a164d6ce36c27637c4)
+        ;
+
+        
+    
+    
+            marker_4d790e7392c5e32e5a07486e77c6ccce.bindTooltip(
+                `<div>
+                     Plage Ste-Marguerite • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7e9cf187b4127fbb2c4c7ea01c00ac5b = L.marker(
+                [48.6809, -3.5601],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_c2e9d978533dd06d5fff6797b24e6177 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_7e9cf187b4127fbb2c4c7ea01c00ac5b.setIcon(icon_c2e9d978533dd06d5fff6797b24e6177);
+        
+    
+        var popup_06c9decb00baaa53b9313b992a9723c3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0429637994bd80632ac2882006b524ac = $(`<div id="html_0429637994bd80632ac2882006b524ac" style="width: 100.0%; height: 100.0%;"><b>Saint-Michel-en-Grève – Bordures rocheuses</b><br><b>Coord:</b> 48.680900, -3.560100<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes rocheuses atteignables à mi-montante; prudence houle.</i></div>`)[0];
+            popup_06c9decb00baaa53b9313b992a9723c3.setContent(html_0429637994bd80632ac2882006b524ac);
+        
+
+        marker_7e9cf187b4127fbb2c4c7ea01c00ac5b.bindPopup(popup_06c9decb00baaa53b9313b992a9723c3)
+        ;
+
+        
+    
+    
+            marker_7e9cf187b4127fbb2c4c7ea01c00ac5b.bindTooltip(
+                `<div>
+                     Saint-Michel-en-Grève – Bordures rocheuses • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ff13287471fcd1ecc1f21fab1ce273b7 = L.marker(
+                [48.6608, -3.6003],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_aca46687ad280a4ddbd76ff31c6baa29 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_ff13287471fcd1ecc1f21fab1ce273b7.setIcon(icon_aca46687ad280a4ddbd76ff31c6baa29);
+        
+    
+        var popup_6755ddd53bf124f7ca174acedb0de672 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_9fd8cbb9371065c06ce433ff078793b6 = $(`<div id="html_9fd8cbb9371065c06ce433ff078793b6" style="width: 100.0%; height: 100.0%;"><b>Beg ar Fry – Plateaux rocheux</b><br><b>Coord:</b> 48.660800, -3.600300<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux exposés; surface à l’aube puis texan.</i></div>`)[0];
+            popup_6755ddd53bf124f7ca174acedb0de672.setContent(html_9fd8cbb9371065c06ce433ff078793b6);
+        
+
+        marker_ff13287471fcd1ecc1f21fab1ce273b7.bindPopup(popup_6755ddd53bf124f7ca174acedb0de672)
+        ;
+
+        
+    
+    
+            marker_ff13287471fcd1ecc1f21fab1ce273b7.bindTooltip(
+                `<div>
+                     Beg ar Fry – Plateaux rocheux • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a40a92659081ed2769204422cab72b6c = L.marker(
+                [48.701, -3.5162],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_bfdf4b4f54492693fa57118333a83e37 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_a40a92659081ed2769204422cab72b6c.setIcon(icon_bfdf4b4f54492693fa57118333a83e37);
+        
+    
+        var popup_dc63ef2f828fe79814c224accbddcd6c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_efd413f440f2c713dfdf121564363d15 = $(`<div id="html_efd413f440f2c713dfdf121564363d15" style="width: 100.0%; height: 100.0%;"><b>Locquirec – Moulin de la Rive</b><br><b>Coord:</b> 48.701000, -3.516200<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Cassures proches; minnows 110–140, shads 10–12 cm.</i></div>`)[0];
+            popup_dc63ef2f828fe79814c224accbddcd6c.setContent(html_efd413f440f2c713dfdf121564363d15);
+        
+
+        marker_a40a92659081ed2769204422cab72b6c.bindPopup(popup_dc63ef2f828fe79814c224accbddcd6c)
+        ;
+
+        
+    
+    
+            marker_a40a92659081ed2769204422cab72b6c.bindTooltip(
+                `<div>
+                     Locquirec – Moulin de la Rive • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b905b270047fd8490eb78a7055ee9366 = L.marker(
+                [48.728, -3.4828],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_054149697b3e28d686f5364fa95570be = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_b905b270047fd8490eb78a7055ee9366.setIcon(icon_054149697b3e28d686f5364fa95570be);
+        
+    
+        var popup_08fe3efa413701667766da7de48a03f8 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_44670a6108d5807d56b740ebd13474a2 = $(`<div id="html_44670a6108d5807d56b740ebd13474a2" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Goas Lagorn</b><br><b>Coord:</b> 48.728000, -3.482800<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes affleurantes à mi/fin de montante; surface tôt.</i></div>`)[0];
+            popup_08fe3efa413701667766da7de48a03f8.setContent(html_44670a6108d5807d56b740ebd13474a2);
+        
+
+        marker_b905b270047fd8490eb78a7055ee9366.bindPopup(popup_08fe3efa413701667766da7de48a03f8)
+        ;
+
+        
+    
+    
+            marker_b905b270047fd8490eb78a7055ee9366.bindTooltip(
+                `<div>
+                     Beg Léguer – Goas Lagorn • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_676902a1d95cf191a954001ed509592a = L.marker(
+                [48.7365, -3.468],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_08ba2ae33a9028513d080850522da7fa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_676902a1d95cf191a954001ed509592a.setIcon(icon_08ba2ae33a9028513d080850522da7fa);
+        
+    
+        var popup_6bb0d3c7400c6c1e07135f2e7fc0aa53 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4ae8307af868e806cc0d082378c64354 = $(`<div id="html_4ae8307af868e806cc0d082378c64354" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Maez an Aod</b><br><b>Coord:</b> 48.736500, -3.468000<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Bordures rocheuses; souples naturels lents.</i></div>`)[0];
+            popup_6bb0d3c7400c6c1e07135f2e7fc0aa53.setContent(html_4ae8307af868e806cc0d082378c64354);
+        
+
+        marker_676902a1d95cf191a954001ed509592a.bindPopup(popup_6bb0d3c7400c6c1e07135f2e7fc0aa53)
+        ;
+
+        
+    
+    
+            marker_676902a1d95cf191a954001ed509592a.bindTooltip(
+                `<div>
+                     Beg Léguer – Maez an Aod • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c1fa2f16aed0634a7e44022fc06991ed = L.marker(
+                [48.7817, -3.5859],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_b7d56316cb033903a3d32d17f66ecbba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_c1fa2f16aed0634a7e44022fc06991ed.setIcon(icon_b7d56316cb033903a3d32d17f66ecbba);
+        
+    
+        var popup_b76f6d151afe2d9ec981fd0d5e9e4ec7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6221fd535fbd117bcab734ec804bc6d1 = $(`<div id="html_6221fd535fbd117bcab734ec804bc6d1" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pointe de Bihit</b><br><b>Coord:</b> 48.781700, -3.585900<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Point avancé; surface au clapot, jerkbait coulant si courant.</i></div>`)[0];
+            popup_b76f6d151afe2d9ec981fd0d5e9e4ec7.setContent(html_6221fd535fbd117bcab734ec804bc6d1);
+        
+
+        marker_c1fa2f16aed0634a7e44022fc06991ed.bindPopup(popup_b76f6d151afe2d9ec981fd0d5e9e4ec7)
+        ;
+
+        
+    
+    
+            marker_c1fa2f16aed0634a7e44022fc06991ed.bindTooltip(
+                `<div>
+                     Trébeurden – Pointe de Bihit • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1810d9cde903fb3cf796edafc31f64b4 = L.marker(
+                [48.7737, -3.5717],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_b57374c8e25f25443f0fda6831e6261a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_1810d9cde903fb3cf796edafc31f64b4.setIcon(icon_b57374c8e25f25443f0fda6831e6261a);
+        
+    
+        var popup_66b8580f65ffe5daad8fef2f9254d3fd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_956dd687e267c8bacdbf430487124977 = $(`<div id="html_956dd687e267c8bacdbf430487124977" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pors Mabo</b><br><b>Coord:</b> 48.773700, -3.571700<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux faciles d’accès; wader utile par mer calme.</i></div>`)[0];
+            popup_66b8580f65ffe5daad8fef2f9254d3fd.setContent(html_956dd687e267c8bacdbf430487124977);
+        
+
+        marker_1810d9cde903fb3cf796edafc31f64b4.bindPopup(popup_66b8580f65ffe5daad8fef2f9254d3fd)
+        ;
+
+        
+    
+    
+            marker_1810d9cde903fb3cf796edafc31f64b4.bindTooltip(
+                `<div>
+                     Trébeurden – Pors Mabo • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b3cdc462bd8d633be981891a81982205 = L.marker(
+                [48.8276, -3.5067],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_184f0f9ca6c952a8b4760454c3026eb9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_b3cdc462bd8d633be981891a81982205.setIcon(icon_184f0f9ca6c952a8b4760454c3026eb9);
+        
+    
+        var popup_da5599a85c28305d34c10e69129930b0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_34745c68673fa1cc4c14cf5a38fa0ed4 = $(`<div id="html_34745c68673fa1cc4c14cf5a38fa0ed4" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Pointe du Squewel</b><br><b>Coord:</b> 48.827600, -3.506700<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Rochers et laminaires; surface à l’aube, puis souples.</i></div>`)[0];
+            popup_da5599a85c28305d34c10e69129930b0.setContent(html_34745c68673fa1cc4c14cf5a38fa0ed4);
+        
+
+        marker_b3cdc462bd8d633be981891a81982205.bindPopup(popup_da5599a85c28305d34c10e69129930b0)
+        ;
+
+        
+    
+    
+            marker_b3cdc462bd8d633be981891a81982205.bindTooltip(
+                `<div>
+                     Trégastel – Pointe du Squewel • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f121f577bacfba7a1a9b416277501e11 = L.marker(
+                [48.8248, -3.5013],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_be142ff9edb4548723762eda7b2dfad6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_f121f577bacfba7a1a9b416277501e11.setIcon(icon_be142ff9edb4548723762eda7b2dfad6);
+        
+    
+        var popup_89ee71a4ac901c4baf9f90f203a71b28 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_bfe08c7557504f27a4c291d119cf42a1 = $(`<div id="html_bfe08c7557504f27a4c291d119cf42a1" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Coz Pors (rochers)</b><br><b>Coord:</b> 48.824800, -3.501300<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Anses abritées; minnows peu plongeants si eau claire.</i></div>`)[0];
+            popup_89ee71a4ac901c4baf9f90f203a71b28.setContent(html_bfe08c7557504f27a4c291d119cf42a1);
+        
+
+        marker_f121f577bacfba7a1a9b416277501e11.bindPopup(popup_89ee71a4ac901c4baf9f90f203a71b28)
+        ;
+
+        
+    
+    
+            marker_f121f577bacfba7a1a9b416277501e11.bindTooltip(
+                `<div>
+                     Trégastel – Coz Pors (rochers) • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c7796c3f0ce8bb191d079a1ea015ab63 = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_cc7d32020e2e02ebd5746ab15081b7a9);
+        
+    
+            var icon_d7972019422369b790a95d8e3f8528d3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-up", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_c7796c3f0ce8bb191d079a1ea015ab63.setIcon(icon_d7972019422369b790a95d8e3f8528d3);
+        
+    
+        var popup_f4ba8003794d74de523d39e2384262d9 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fd70e34af23086e62c5fc2de57940c73 = $(`<div id="html_fd70e34af23086e62c5fc2de57940c73" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_f4ba8003794d74de523d39e2384262d9.setContent(html_fd70e34af23086e62c5fc2de57940c73);
+        
+
+        marker_c7796c3f0ce8bb191d079a1ea015ab63.bindPopup(popup_f4ba8003794d74de523d39e2384262d9)
+        ;
+
+        
+    
+    
+            marker_c7796c3f0ce8bb191d079a1ea015ab63.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Marée Montante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_3e07b6cb42f40a263f25722471030f3c = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_18e676e82ba074ea5f7e17a3193dbfca = L.marker(
+                [48.72861, -3.56389],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_2db32363a955fabaf6b39ad6c7efa1af = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_18e676e82ba074ea5f7e17a3193dbfca.setIcon(icon_2db32363a955fabaf6b39ad6c7efa1af);
+        
+    
+        var popup_bd6d5f9d6dddc2ad4a2edf35814e56a1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_628f0f3b1efdc72dd174bd96f27fe6cf = $(`<div id="html_628f0f3b1efdc72dd174bd96f27fe6cf" style="width: 100.0%; height: 100.0%;"><b>Plage du Dourven</b><br><b>Coord:</b> 48.728610, -3.563890<br><b>Marée conseillée:</b> Descendante<br><b>Leurre(s):</b> Surface<br><i>Descendante en surface le long de la plage; suivre la bordure d’écume.</i></div>`)[0];
+            popup_bd6d5f9d6dddc2ad4a2edf35814e56a1.setContent(html_628f0f3b1efdc72dd174bd96f27fe6cf);
+        
+
+        marker_18e676e82ba074ea5f7e17a3193dbfca.bindPopup(popup_bd6d5f9d6dddc2ad4a2edf35814e56a1)
+        ;
+
+        
+    
+    
+            marker_18e676e82ba074ea5f7e17a3193dbfca.bindTooltip(
+                `<div>
+                     Plage du Dourven • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_27345f2fca13c169700d708a0bec2f02 = L.marker(
+                [48.67806, -3.57639],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_27db47947a09111c7f59684ecbe4faa4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_27345f2fca13c169700d708a0bec2f02.setIcon(icon_27db47947a09111c7f59684ecbe4faa4);
+        
+    
+        var popup_2e86065a7b4060ed5f6fb35ef3ec72b7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2ecc1d1bdda884767bf5f0ebac1e8068 = $(`<div id="html_2ecc1d1bdda884767bf5f0ebac1e8068" style="width: 100.0%; height: 100.0%;"><b>Plage de St Michel</b><br><b>Coord:</b> 48.678060, -3.576390<br><b>Marée conseillée:</b> Descendante<br><b>Leurre(s):</b> Surface<br><i>Embouchure du ruisseau (dans l'eau à marée basse). Descendante en surface.</i></div>`)[0];
+            popup_2e86065a7b4060ed5f6fb35ef3ec72b7.setContent(html_2ecc1d1bdda884767bf5f0ebac1e8068);
+        
+
+        marker_27345f2fca13c169700d708a0bec2f02.bindPopup(popup_2e86065a7b4060ed5f6fb35ef3ec72b7)
+        ;
+
+        
+    
+    
+            marker_27345f2fca13c169700d708a0bec2f02.bindTooltip(
+                `<div>
+                     Plage de St Michel • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1e15f4eda9545df72a63cbab2c7ad65c = L.marker(
+                [48.6608, -3.6003],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_3b90c3a0730f96cba934854f21c6c976 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_1e15f4eda9545df72a63cbab2c7ad65c.setIcon(icon_3b90c3a0730f96cba934854f21c6c976);
+        
+    
+        var popup_509dbc094ed37a7b79e8173c9f8d1c63 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_07c3265486af0b2e479a92aa7c9e7b2f = $(`<div id="html_07c3265486af0b2e479a92aa7c9e7b2f" style="width: 100.0%; height: 100.0%;"><b>Beg ar Fry – Plateaux rocheux</b><br><b>Coord:</b> 48.660800, -3.600300<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux exposés; surface à l’aube puis texan.</i></div>`)[0];
+            popup_509dbc094ed37a7b79e8173c9f8d1c63.setContent(html_07c3265486af0b2e479a92aa7c9e7b2f);
+        
+
+        marker_1e15f4eda9545df72a63cbab2c7ad65c.bindPopup(popup_509dbc094ed37a7b79e8173c9f8d1c63)
+        ;
+
+        
+    
+    
+            marker_1e15f4eda9545df72a63cbab2c7ad65c.bindTooltip(
+                `<div>
+                     Beg ar Fry – Plateaux rocheux • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f055cc55811e8cd0ca75fb6ffea0d66e = L.marker(
+                [48.7365, -3.468],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_0cf4815eebcff5d4c03657c2b50bfd71 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_f055cc55811e8cd0ca75fb6ffea0d66e.setIcon(icon_0cf4815eebcff5d4c03657c2b50bfd71);
+        
+    
+        var popup_e451ea045e9158d98700a8aecaa70b12 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1272bfe48cfa775b63ee27f5fdadcff8 = $(`<div id="html_1272bfe48cfa775b63ee27f5fdadcff8" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Maez an Aod</b><br><b>Coord:</b> 48.736500, -3.468000<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Bordures rocheuses; souples naturels lents.</i></div>`)[0];
+            popup_e451ea045e9158d98700a8aecaa70b12.setContent(html_1272bfe48cfa775b63ee27f5fdadcff8);
+        
+
+        marker_f055cc55811e8cd0ca75fb6ffea0d66e.bindPopup(popup_e451ea045e9158d98700a8aecaa70b12)
+        ;
+
+        
+    
+    
+            marker_f055cc55811e8cd0ca75fb6ffea0d66e.bindTooltip(
+                `<div>
+                     Beg Léguer – Maez an Aod • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a9deedff638d193e96e03c4c4fbe3116 = L.marker(
+                [48.7653, -3.5582],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_1139df3c0c3ef0cf789ac94cbdde4ca7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_a9deedff638d193e96e03c4c4fbe3116.setIcon(icon_1139df3c0c3ef0cf789ac94cbdde4ca7);
+        
+    
+        var popup_f66120895475bce60a936dd22463bf57 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8b261c360cd609f131f0ab9ab332bbd9 = $(`<div id="html_8b261c360cd609f131f0ab9ab332bbd9" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Toëno (tombants)</b><br><b>Coord:</b> 48.765300, -3.558200<br><b>Marée conseillée:</b> Renverse, Descendante<br><b>Leurre(s):</b> Souple, Plongeant<br><i>Tombants près du chenal; shads 10–12 cm.</i></div>`)[0];
+            popup_f66120895475bce60a936dd22463bf57.setContent(html_8b261c360cd609f131f0ab9ab332bbd9);
+        
+
+        marker_a9deedff638d193e96e03c4c4fbe3116.bindPopup(popup_f66120895475bce60a936dd22463bf57)
+        ;
+
+        
+    
+    
+            marker_a9deedff638d193e96e03c4c4fbe3116.bindTooltip(
+                `<div>
+                     Trébeurden – Toëno (tombants) • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c561eb4f248b6a063b617f7db2fae74b = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_3e07b6cb42f40a263f25722471030f3c);
+        
+    
+            var icon_8c5741b82507e6c3e27a388b84f2de80 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "arrow-down", "iconColor": "white", "markerColor": "purple", "prefix": "fa"}
+            );
+            marker_c561eb4f248b6a063b617f7db2fae74b.setIcon(icon_8c5741b82507e6c3e27a388b84f2de80);
+        
+    
+        var popup_c7437895e9780877690d668f4ff6f13d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7ce239794c1256d480725b7d44032a4d = $(`<div id="html_7ce239794c1256d480725b7d44032a4d" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_c7437895e9780877690d668f4ff6f13d.setContent(html_7ce239794c1256d480725b7d44032a4d);
+        
+
+        marker_c561eb4f248b6a063b617f7db2fae74b.bindPopup(popup_c7437895e9780877690d668f4ff6f13d)
+        ;
+
+        
+    
+    
+            marker_c561eb4f248b6a063b617f7db2fae74b.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Marée Descendante
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_dd23e62184ba7c8f445741591a2678d1 = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_32b7a15ba0e8f85b20bf4b64b952fcde = L.marker(
+                [48.6809, -3.5601],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_67f9c6358b26b6c95b29b4d187389463 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_32b7a15ba0e8f85b20bf4b64b952fcde.setIcon(icon_67f9c6358b26b6c95b29b4d187389463);
+        
+    
+        var popup_ebbe307496b4698d18c582dde6519ebe = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8327cb5efec63be6c190d5dd54db19af = $(`<div id="html_8327cb5efec63be6c190d5dd54db19af" style="width: 100.0%; height: 100.0%;"><b>Saint-Michel-en-Grève – Bordures rocheuses</b><br><b>Coord:</b> 48.680900, -3.560100<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes rocheuses atteignables à mi-montante; prudence houle.</i></div>`)[0];
+            popup_ebbe307496b4698d18c582dde6519ebe.setContent(html_8327cb5efec63be6c190d5dd54db19af);
+        
+
+        marker_32b7a15ba0e8f85b20bf4b64b952fcde.bindPopup(popup_ebbe307496b4698d18c582dde6519ebe)
+        ;
+
+        
+    
+    
+            marker_32b7a15ba0e8f85b20bf4b64b952fcde.bindTooltip(
+                `<div>
+                     Saint-Michel-en-Grève – Bordures rocheuses • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_edb8ae5203691f51e24e1fad6da6af7f = L.marker(
+                [48.701, -3.5162],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_8b42a269da4213ccc5476f2bf0684438 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_edb8ae5203691f51e24e1fad6da6af7f.setIcon(icon_8b42a269da4213ccc5476f2bf0684438);
+        
+    
+        var popup_8beff82e9fc07509e714b5f114c8f3d2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4cdf132e12929f1ae855ac84b0ce3c8b = $(`<div id="html_4cdf132e12929f1ae855ac84b0ce3c8b" style="width: 100.0%; height: 100.0%;"><b>Locquirec – Moulin de la Rive</b><br><b>Coord:</b> 48.701000, -3.516200<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Cassures proches; minnows 110–140, shads 10–12 cm.</i></div>`)[0];
+            popup_8beff82e9fc07509e714b5f114c8f3d2.setContent(html_4cdf132e12929f1ae855ac84b0ce3c8b);
+        
+
+        marker_edb8ae5203691f51e24e1fad6da6af7f.bindPopup(popup_8beff82e9fc07509e714b5f114c8f3d2)
+        ;
+
+        
+    
+    
+            marker_edb8ae5203691f51e24e1fad6da6af7f.bindTooltip(
+                `<div>
+                     Locquirec – Moulin de la Rive • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7b272b87257747db7df31c8d99a0531a = L.marker(
+                [48.7817, -3.5859],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_10be77dd4a54e69649c50722974eefe6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_7b272b87257747db7df31c8d99a0531a.setIcon(icon_10be77dd4a54e69649c50722974eefe6);
+        
+    
+        var popup_97d349136ffa1db99c23a8b65445193d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_eb20afe5a713726653cef272a401c0e7 = $(`<div id="html_eb20afe5a713726653cef272a401c0e7" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pointe de Bihit</b><br><b>Coord:</b> 48.781700, -3.585900<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Point avancé; surface au clapot, jerkbait coulant si courant.</i></div>`)[0];
+            popup_97d349136ffa1db99c23a8b65445193d.setContent(html_eb20afe5a713726653cef272a401c0e7);
+        
+
+        marker_7b272b87257747db7df31c8d99a0531a.bindPopup(popup_97d349136ffa1db99c23a8b65445193d)
+        ;
+
+        
+    
+    
+            marker_7b272b87257747db7df31c8d99a0531a.bindTooltip(
+                `<div>
+                     Trébeurden – Pointe de Bihit • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_acabbbc5d80f5d5446603a8f9cfc2d81 = L.marker(
+                [48.7653, -3.5582],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_8e56eb0319d44aa828407fefbb6e8b3e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_acabbbc5d80f5d5446603a8f9cfc2d81.setIcon(icon_8e56eb0319d44aa828407fefbb6e8b3e);
+        
+    
+        var popup_a0d4c646ea3b021b79f793f60763f49c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fb4d96f9295c4941c0a1af12565ea6ed = $(`<div id="html_fb4d96f9295c4941c0a1af12565ea6ed" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Toëno (tombants)</b><br><b>Coord:</b> 48.765300, -3.558200<br><b>Marée conseillée:</b> Renverse, Descendante<br><b>Leurre(s):</b> Souple, Plongeant<br><i>Tombants près du chenal; shads 10–12 cm.</i></div>`)[0];
+            popup_a0d4c646ea3b021b79f793f60763f49c.setContent(html_fb4d96f9295c4941c0a1af12565ea6ed);
+        
+
+        marker_acabbbc5d80f5d5446603a8f9cfc2d81.bindPopup(popup_a0d4c646ea3b021b79f793f60763f49c)
+        ;
+
+        
+    
+    
+            marker_acabbbc5d80f5d5446603a8f9cfc2d81.bindTooltip(
+                `<div>
+                     Trébeurden – Toëno (tombants) • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c83f883ca6680621b622b551e1518163 = L.marker(
+                [48.8276, -3.5067],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_e75877a3d6b8e007015b91b4bee20732 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_c83f883ca6680621b622b551e1518163.setIcon(icon_e75877a3d6b8e007015b91b4bee20732);
+        
+    
+        var popup_ab3f51bb3feaa1ef88c331ec82660f31 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ea81a1a52025da78539ce04250dc18bc = $(`<div id="html_ea81a1a52025da78539ce04250dc18bc" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Pointe du Squewel</b><br><b>Coord:</b> 48.827600, -3.506700<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Rochers et laminaires; surface à l’aube, puis souples.</i></div>`)[0];
+            popup_ab3f51bb3feaa1ef88c331ec82660f31.setContent(html_ea81a1a52025da78539ce04250dc18bc);
+        
+
+        marker_c83f883ca6680621b622b551e1518163.bindPopup(popup_ab3f51bb3feaa1ef88c331ec82660f31)
+        ;
+
+        
+    
+    
+            marker_c83f883ca6680621b622b551e1518163.bindTooltip(
+                `<div>
+                     Trégastel – Pointe du Squewel • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f1db9af8998d5765ae1f8f6852d42a01 = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_dd23e62184ba7c8f445741591a2678d1);
+        
+    
+            var icon_7c81986c0e563cf8e063ade734a6d2f1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "refresh", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f1db9af8998d5765ae1f8f6852d42a01.setIcon(icon_7c81986c0e563cf8e063ade734a6d2f1);
+        
+    
+        var popup_597b56a3b5532e17e4c80b6191dd13bd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0f7a6ee6fc659814de19d1000e9c8396 = $(`<div id="html_0f7a6ee6fc659814de19d1000e9c8396" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_597b56a3b5532e17e4c80b6191dd13bd.setContent(html_0f7a6ee6fc659814de19d1000e9c8396);
+        
+
+        marker_f1db9af8998d5765ae1f8f6852d42a01.bindPopup(popup_597b56a3b5532e17e4c80b6191dd13bd)
+        ;
+
+        
+    
+    
+            marker_f1db9af8998d5765ae1f8f6852d42a01.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Marée Renverse
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_a1d6e9259617255b02cbf6d3d2cd9503 = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_03cc4306c9a61d96a6685cef3388fdce = L.marker(
+                [48.72861, -3.56389],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_bfe30ce3978bac530c58edb802c58ad9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_03cc4306c9a61d96a6685cef3388fdce.setIcon(icon_bfe30ce3978bac530c58edb802c58ad9);
+        
+    
+        var popup_77f2b4ca7613c3d08dd5c74eeee9b9b3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_96d8e23cb6967316fe67d7cb43ef52ec = $(`<div id="html_96d8e23cb6967316fe67d7cb43ef52ec" style="width: 100.0%; height: 100.0%;"><b>Plage du Dourven</b><br><b>Coord:</b> 48.728610, -3.563890<br><b>Marée conseillée:</b> Descendante<br><b>Leurre(s):</b> Surface<br><i>Descendante en surface le long de la plage; suivre la bordure d’écume.</i></div>`)[0];
+            popup_77f2b4ca7613c3d08dd5c74eeee9b9b3.setContent(html_96d8e23cb6967316fe67d7cb43ef52ec);
+        
+
+        marker_03cc4306c9a61d96a6685cef3388fdce.bindPopup(popup_77f2b4ca7613c3d08dd5c74eeee9b9b3)
+        ;
+
+        
+    
+    
+            marker_03cc4306c9a61d96a6685cef3388fdce.bindTooltip(
+                `<div>
+                     Plage du Dourven • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5c81c2189ab9698d5d16afdfe18f665c = L.marker(
+                [48.68917, -3.57972],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_5ecb4ef577caad2865686a7a3bd55892 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_5c81c2189ab9698d5d16afdfe18f665c.setIcon(icon_5ecb4ef577caad2865686a7a3bd55892);
+        
+    
+        var popup_7f348551221ec1714174fcdb12392e18 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_23d92151cb2e5005e6af572845311d57 = $(`<div id="html_23d92151cb2e5005e6af572845311d57" style="width: 100.0%; height: 100.0%;"><b>Plage Ste-Marguerite</b><br><b>Coord:</b> 48.689170, -3.579720<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Montante au pied des falaises; surface au clapot, LS entre failles.</i></div>`)[0];
+            popup_7f348551221ec1714174fcdb12392e18.setContent(html_23d92151cb2e5005e6af572845311d57);
+        
+
+        marker_5c81c2189ab9698d5d16afdfe18f665c.bindPopup(popup_7f348551221ec1714174fcdb12392e18)
+        ;
+
+        
+    
+    
+            marker_5c81c2189ab9698d5d16afdfe18f665c.bindTooltip(
+                `<div>
+                     Plage Ste-Marguerite • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d902427a24f2cffadc56d3b8c0b4efa4 = L.marker(
+                [48.67806, -3.57639],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_d74fbb029785714899ecbdcfd930dc2b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_d902427a24f2cffadc56d3b8c0b4efa4.setIcon(icon_d74fbb029785714899ecbdcfd930dc2b);
+        
+    
+        var popup_535a7fc979ed60aa95dc738d47902606 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_428d6e66fe7c823a0ca2b276850e2cd4 = $(`<div id="html_428d6e66fe7c823a0ca2b276850e2cd4" style="width: 100.0%; height: 100.0%;"><b>Plage de St Michel</b><br><b>Coord:</b> 48.678060, -3.576390<br><b>Marée conseillée:</b> Descendante<br><b>Leurre(s):</b> Surface<br><i>Embouchure du ruisseau (dans l'eau à marée basse). Descendante en surface.</i></div>`)[0];
+            popup_535a7fc979ed60aa95dc738d47902606.setContent(html_428d6e66fe7c823a0ca2b276850e2cd4);
+        
+
+        marker_d902427a24f2cffadc56d3b8c0b4efa4.bindPopup(popup_535a7fc979ed60aa95dc738d47902606)
+        ;
+
+        
+    
+    
+            marker_d902427a24f2cffadc56d3b8c0b4efa4.bindTooltip(
+                `<div>
+                     Plage de St Michel • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b139e419edc713281b06733e5cadffdf = L.marker(
+                [48.6809, -3.5601],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_9a009f40aa509eedd23480980c33ccc4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_b139e419edc713281b06733e5cadffdf.setIcon(icon_9a009f40aa509eedd23480980c33ccc4);
+        
+    
+        var popup_a6d23da4c84de93a0e7bd90d947ab1c4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f99c145958d78a91f9e379838f9331df = $(`<div id="html_f99c145958d78a91f9e379838f9331df" style="width: 100.0%; height: 100.0%;"><b>Saint-Michel-en-Grève – Bordures rocheuses</b><br><b>Coord:</b> 48.680900, -3.560100<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes rocheuses atteignables à mi-montante; prudence houle.</i></div>`)[0];
+            popup_a6d23da4c84de93a0e7bd90d947ab1c4.setContent(html_f99c145958d78a91f9e379838f9331df);
+        
+
+        marker_b139e419edc713281b06733e5cadffdf.bindPopup(popup_a6d23da4c84de93a0e7bd90d947ab1c4)
+        ;
+
+        
+    
+    
+            marker_b139e419edc713281b06733e5cadffdf.bindTooltip(
+                `<div>
+                     Saint-Michel-en-Grève – Bordures rocheuses • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_804f46ab6d9611f0caf27149de77163d = L.marker(
+                [48.6608, -3.6003],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_52d1275c90a198f59d8f5eb99dd22c1a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_804f46ab6d9611f0caf27149de77163d.setIcon(icon_52d1275c90a198f59d8f5eb99dd22c1a);
+        
+    
+        var popup_18925d2e397b3f7345a20e9972c58d9d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ceb8eb9e12fb7476aedc5c7a39b78a07 = $(`<div id="html_ceb8eb9e12fb7476aedc5c7a39b78a07" style="width: 100.0%; height: 100.0%;"><b>Beg ar Fry – Plateaux rocheux</b><br><b>Coord:</b> 48.660800, -3.600300<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux exposés; surface à l’aube puis texan.</i></div>`)[0];
+            popup_18925d2e397b3f7345a20e9972c58d9d.setContent(html_ceb8eb9e12fb7476aedc5c7a39b78a07);
+        
+
+        marker_804f46ab6d9611f0caf27149de77163d.bindPopup(popup_18925d2e397b3f7345a20e9972c58d9d)
+        ;
+
+        
+    
+    
+            marker_804f46ab6d9611f0caf27149de77163d.bindTooltip(
+                `<div>
+                     Beg ar Fry – Plateaux rocheux • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4ecb1c83d07a2819ec0339205cd3f80c = L.marker(
+                [48.701, -3.5162],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_d71894744572fc9f9ba896f5ec0e67d8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_4ecb1c83d07a2819ec0339205cd3f80c.setIcon(icon_d71894744572fc9f9ba896f5ec0e67d8);
+        
+    
+        var popup_6a9cc3ed697b727187b351ffc308cd82 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1d1bbba83c2e92df0563788f17aa5575 = $(`<div id="html_1d1bbba83c2e92df0563788f17aa5575" style="width: 100.0%; height: 100.0%;"><b>Locquirec – Moulin de la Rive</b><br><b>Coord:</b> 48.701000, -3.516200<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Cassures proches; minnows 110–140, shads 10–12 cm.</i></div>`)[0];
+            popup_6a9cc3ed697b727187b351ffc308cd82.setContent(html_1d1bbba83c2e92df0563788f17aa5575);
+        
+
+        marker_4ecb1c83d07a2819ec0339205cd3f80c.bindPopup(popup_6a9cc3ed697b727187b351ffc308cd82)
+        ;
+
+        
+    
+    
+            marker_4ecb1c83d07a2819ec0339205cd3f80c.bindTooltip(
+                `<div>
+                     Locquirec – Moulin de la Rive • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9d30ea7595fd50b7a5e87e03df278cb5 = L.marker(
+                [48.728, -3.4828],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_fd85bd74be573f56c70f0c35884b4318 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_9d30ea7595fd50b7a5e87e03df278cb5.setIcon(icon_fd85bd74be573f56c70f0c35884b4318);
+        
+    
+        var popup_62772a98a0062e3dcd3d8535b76a5abd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2f883fdfc07cc15305d6b1f03c01ed1c = $(`<div id="html_2f883fdfc07cc15305d6b1f03c01ed1c" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Goas Lagorn</b><br><b>Coord:</b> 48.728000, -3.482800<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes affleurantes à mi/fin de montante; surface tôt.</i></div>`)[0];
+            popup_62772a98a0062e3dcd3d8535b76a5abd.setContent(html_2f883fdfc07cc15305d6b1f03c01ed1c);
+        
+
+        marker_9d30ea7595fd50b7a5e87e03df278cb5.bindPopup(popup_62772a98a0062e3dcd3d8535b76a5abd)
+        ;
+
+        
+    
+    
+            marker_9d30ea7595fd50b7a5e87e03df278cb5.bindTooltip(
+                `<div>
+                     Beg Léguer – Goas Lagorn • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fa4f9c0722fe50d14f342051dbdb8d55 = L.marker(
+                [48.7365, -3.468],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_dd4a131a7d2659e601a35a824eb14822 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_fa4f9c0722fe50d14f342051dbdb8d55.setIcon(icon_dd4a131a7d2659e601a35a824eb14822);
+        
+    
+        var popup_2249c1ef7a55618d41d96c9b9980c7da = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5cc4988204aca6105f3f431d0fb8dcc0 = $(`<div id="html_5cc4988204aca6105f3f431d0fb8dcc0" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Maez an Aod</b><br><b>Coord:</b> 48.736500, -3.468000<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Bordures rocheuses; souples naturels lents.</i></div>`)[0];
+            popup_2249c1ef7a55618d41d96c9b9980c7da.setContent(html_5cc4988204aca6105f3f431d0fb8dcc0);
+        
+
+        marker_fa4f9c0722fe50d14f342051dbdb8d55.bindPopup(popup_2249c1ef7a55618d41d96c9b9980c7da)
+        ;
+
+        
+    
+    
+            marker_fa4f9c0722fe50d14f342051dbdb8d55.bindTooltip(
+                `<div>
+                     Beg Léguer – Maez an Aod • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0a79fa6b76b153cacfa6af1b03448426 = L.marker(
+                [48.7817, -3.5859],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_937cd86c6d95458d231ae48c4a50953b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_0a79fa6b76b153cacfa6af1b03448426.setIcon(icon_937cd86c6d95458d231ae48c4a50953b);
+        
+    
+        var popup_d3ed30433b4cc7958b454b4af053c84e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d18f746457addc8d280ce78473dc92e9 = $(`<div id="html_d18f746457addc8d280ce78473dc92e9" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pointe de Bihit</b><br><b>Coord:</b> 48.781700, -3.585900<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Point avancé; surface au clapot, jerkbait coulant si courant.</i></div>`)[0];
+            popup_d3ed30433b4cc7958b454b4af053c84e.setContent(html_d18f746457addc8d280ce78473dc92e9);
+        
+
+        marker_0a79fa6b76b153cacfa6af1b03448426.bindPopup(popup_d3ed30433b4cc7958b454b4af053c84e)
+        ;
+
+        
+    
+    
+            marker_0a79fa6b76b153cacfa6af1b03448426.bindTooltip(
+                `<div>
+                     Trébeurden – Pointe de Bihit • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0e7bdad6ef2d87d8a6b334b245039c90 = L.marker(
+                [48.7737, -3.5717],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_b8f2ee99fa1ed04fb6264c4bf0a4635f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_0e7bdad6ef2d87d8a6b334b245039c90.setIcon(icon_b8f2ee99fa1ed04fb6264c4bf0a4635f);
+        
+    
+        var popup_21528befa8c2b68e6b69275445fb7986 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5856ebac2082d6e9cf74527c51317e8c = $(`<div id="html_5856ebac2082d6e9cf74527c51317e8c" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pors Mabo</b><br><b>Coord:</b> 48.773700, -3.571700<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux faciles d’accès; wader utile par mer calme.</i></div>`)[0];
+            popup_21528befa8c2b68e6b69275445fb7986.setContent(html_5856ebac2082d6e9cf74527c51317e8c);
+        
+
+        marker_0e7bdad6ef2d87d8a6b334b245039c90.bindPopup(popup_21528befa8c2b68e6b69275445fb7986)
+        ;
+
+        
+    
+    
+            marker_0e7bdad6ef2d87d8a6b334b245039c90.bindTooltip(
+                `<div>
+                     Trébeurden – Pors Mabo • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1e36872aeeb6849800452a09c1416f72 = L.marker(
+                [48.8276, -3.5067],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_7d30a3aa80171a00394c5deeb9dc27db = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_1e36872aeeb6849800452a09c1416f72.setIcon(icon_7d30a3aa80171a00394c5deeb9dc27db);
+        
+    
+        var popup_df41f21f5db30e8db1dd9a228565240c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ef9ef3be5346acf710d1a51255f90875 = $(`<div id="html_ef9ef3be5346acf710d1a51255f90875" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Pointe du Squewel</b><br><b>Coord:</b> 48.827600, -3.506700<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Rochers et laminaires; surface à l’aube, puis souples.</i></div>`)[0];
+            popup_df41f21f5db30e8db1dd9a228565240c.setContent(html_ef9ef3be5346acf710d1a51255f90875);
+        
+
+        marker_1e36872aeeb6849800452a09c1416f72.bindPopup(popup_df41f21f5db30e8db1dd9a228565240c)
+        ;
+
+        
+    
+    
+            marker_1e36872aeeb6849800452a09c1416f72.bindTooltip(
+                `<div>
+                     Trégastel – Pointe du Squewel • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_7989a5b0e1a3ff10eadd8386ea72153f = L.marker(
+                [48.8248, -3.5013],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_5d5b50db8141d1c1afa40d451237d504 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_7989a5b0e1a3ff10eadd8386ea72153f.setIcon(icon_5d5b50db8141d1c1afa40d451237d504);
+        
+    
+        var popup_b9ca677483b749862f71f6465961e3fd = L.popup({"maxWidth": "100%"});
+
+        
+            var html_bee16d497f220107cba692d36428832c = $(`<div id="html_bee16d497f220107cba692d36428832c" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Coz Pors (rochers)</b><br><b>Coord:</b> 48.824800, -3.501300<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Anses abritées; minnows peu plongeants si eau claire.</i></div>`)[0];
+            popup_b9ca677483b749862f71f6465961e3fd.setContent(html_bee16d497f220107cba692d36428832c);
+        
+
+        marker_7989a5b0e1a3ff10eadd8386ea72153f.bindPopup(popup_b9ca677483b749862f71f6465961e3fd)
+        ;
+
+        
+    
+    
+            marker_7989a5b0e1a3ff10eadd8386ea72153f.bindTooltip(
+                `<div>
+                     Trégastel – Coz Pors (rochers) • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_381e013c40d2e0a3e85191b00017d6cb = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_a1d6e9259617255b02cbf6d3d2cd9503);
+        
+    
+            var icon_60636e2598b3534c841fd10483f54f82 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "flag", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_381e013c40d2e0a3e85191b00017d6cb.setIcon(icon_60636e2598b3534c841fd10483f54f82);
+        
+    
+        var popup_4620d7ddd9ce977893ba8c33cb1a4eae = L.popup({"maxWidth": "100%"});
+
+        
+            var html_11a5a9c6e965f9f026fa5e02669f34a8 = $(`<div id="html_11a5a9c6e965f9f026fa5e02669f34a8" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_4620d7ddd9ce977893ba8c33cb1a4eae.setContent(html_11a5a9c6e965f9f026fa5e02669f34a8);
+        
+
+        marker_381e013c40d2e0a3e85191b00017d6cb.bindPopup(popup_4620d7ddd9ce977893ba8c33cb1a4eae)
+        ;
+
+        
+    
+    
+            marker_381e013c40d2e0a3e85191b00017d6cb.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Leurre Surface
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_26b7cc0b549732d00bb4c82db7fb6e80 = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_71ba86321233ba332a56bd2aa754dd2d = L.marker(
+                [48.73139, -3.56444],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_1123e0dbe6e9fd962147d4d68061d194 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_71ba86321233ba332a56bd2aa754dd2d.setIcon(icon_1123e0dbe6e9fd962147d4d68061d194);
+        
+    
+        var popup_de47ee6889d7129586acc682e163253b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6eb82d7dda8ef2f2681e6d36af1da7ba = $(`<div id="html_6eb82d7dda8ef2f2681e6d36af1da7ba" style="width: 100.0%; height: 100.0%;"><b>Pointe du Dourven</b><br><b>Coord:</b> 48.731390, -3.564440<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Souple<br><i>Coordonnée Google Earth (utilisateur). Pleine mer/montante; souples entre les rochers.</i></div>`)[0];
+            popup_de47ee6889d7129586acc682e163253b.setContent(html_6eb82d7dda8ef2f2681e6d36af1da7ba);
+        
+
+        marker_71ba86321233ba332a56bd2aa754dd2d.bindPopup(popup_de47ee6889d7129586acc682e163253b)
+        ;
+
+        
+    
+    
+            marker_71ba86321233ba332a56bd2aa754dd2d.bindTooltip(
+                `<div>
+                     Pointe du Dourven • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a0d8157a60ed7747669ec7798c2b49f3 = L.marker(
+                [48.68917, -3.57972],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_dd8f8eb8f838ae76bdf6bb0321ee883f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_a0d8157a60ed7747669ec7798c2b49f3.setIcon(icon_dd8f8eb8f838ae76bdf6bb0321ee883f);
+        
+    
+        var popup_ac1485dcfe904408fb70af811e6a1aa4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c6212879072eda9ec8b0e43ea276463c = $(`<div id="html_c6212879072eda9ec8b0e43ea276463c" style="width: 100.0%; height: 100.0%;"><b>Plage Ste-Marguerite</b><br><b>Coord:</b> 48.689170, -3.579720<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Montante au pied des falaises; surface au clapot, LS entre failles.</i></div>`)[0];
+            popup_ac1485dcfe904408fb70af811e6a1aa4.setContent(html_c6212879072eda9ec8b0e43ea276463c);
+        
+
+        marker_a0d8157a60ed7747669ec7798c2b49f3.bindPopup(popup_ac1485dcfe904408fb70af811e6a1aa4)
+        ;
+
+        
+    
+    
+            marker_a0d8157a60ed7747669ec7798c2b49f3.bindTooltip(
+                `<div>
+                     Plage Ste-Marguerite • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9135397c54ef01c67499e2b460382c43 = L.marker(
+                [48.6809, -3.5601],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_52ba378c36d6fcf11935e641afffab39 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_9135397c54ef01c67499e2b460382c43.setIcon(icon_52ba378c36d6fcf11935e641afffab39);
+        
+    
+        var popup_9ce651c01fc1ae6e0efda0253978ba41 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8c447214273d865df6c5e784208631f4 = $(`<div id="html_8c447214273d865df6c5e784208631f4" style="width: 100.0%; height: 100.0%;"><b>Saint-Michel-en-Grève – Bordures rocheuses</b><br><b>Coord:</b> 48.680900, -3.560100<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes rocheuses atteignables à mi-montante; prudence houle.</i></div>`)[0];
+            popup_9ce651c01fc1ae6e0efda0253978ba41.setContent(html_8c447214273d865df6c5e784208631f4);
+        
+
+        marker_9135397c54ef01c67499e2b460382c43.bindPopup(popup_9ce651c01fc1ae6e0efda0253978ba41)
+        ;
+
+        
+    
+    
+            marker_9135397c54ef01c67499e2b460382c43.bindTooltip(
+                `<div>
+                     Saint-Michel-en-Grève – Bordures rocheuses • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_dfb0d2cff82c12abcb7584618a194002 = L.marker(
+                [48.6608, -3.6003],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_75c4dba20d5d6790a3c8f23fc245b21c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_dfb0d2cff82c12abcb7584618a194002.setIcon(icon_75c4dba20d5d6790a3c8f23fc245b21c);
+        
+    
+        var popup_aed351e70b664861a5ff5991e2fe571b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_78d13b124ddd458cc30faaabea376166 = $(`<div id="html_78d13b124ddd458cc30faaabea376166" style="width: 100.0%; height: 100.0%;"><b>Beg ar Fry – Plateaux rocheux</b><br><b>Coord:</b> 48.660800, -3.600300<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux exposés; surface à l’aube puis texan.</i></div>`)[0];
+            popup_aed351e70b664861a5ff5991e2fe571b.setContent(html_78d13b124ddd458cc30faaabea376166);
+        
+
+        marker_dfb0d2cff82c12abcb7584618a194002.bindPopup(popup_aed351e70b664861a5ff5991e2fe571b)
+        ;
+
+        
+    
+    
+            marker_dfb0d2cff82c12abcb7584618a194002.bindTooltip(
+                `<div>
+                     Beg ar Fry – Plateaux rocheux • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3ca00f060635e579c6f6d87750fc3176 = L.marker(
+                [48.701, -3.5162],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_5e644223a9e12607684c8a7fcd7dbf2f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_3ca00f060635e579c6f6d87750fc3176.setIcon(icon_5e644223a9e12607684c8a7fcd7dbf2f);
+        
+    
+        var popup_574151a52b0c2eac6457cba24b2c7b25 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_627d07306065953b8a3cfd35760ceb5e = $(`<div id="html_627d07306065953b8a3cfd35760ceb5e" style="width: 100.0%; height: 100.0%;"><b>Locquirec – Moulin de la Rive</b><br><b>Coord:</b> 48.701000, -3.516200<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Cassures proches; minnows 110–140, shads 10–12 cm.</i></div>`)[0];
+            popup_574151a52b0c2eac6457cba24b2c7b25.setContent(html_627d07306065953b8a3cfd35760ceb5e);
+        
+
+        marker_3ca00f060635e579c6f6d87750fc3176.bindPopup(popup_574151a52b0c2eac6457cba24b2c7b25)
+        ;
+
+        
+    
+    
+            marker_3ca00f060635e579c6f6d87750fc3176.bindTooltip(
+                `<div>
+                     Locquirec – Moulin de la Rive • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_72e765e2e00bc7817d499eea076b5ba5 = L.marker(
+                [48.728, -3.4828],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_1ab244b31ca60ddc46ecf572adaea671 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_72e765e2e00bc7817d499eea076b5ba5.setIcon(icon_1ab244b31ca60ddc46ecf572adaea671);
+        
+    
+        var popup_b6b65e9842361e27dddf9168bffaf15c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_67156aae48fb9b9063fa6a262a379ca3 = $(`<div id="html_67156aae48fb9b9063fa6a262a379ca3" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Goas Lagorn</b><br><b>Coord:</b> 48.728000, -3.482800<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Têtes affleurantes à mi/fin de montante; surface tôt.</i></div>`)[0];
+            popup_b6b65e9842361e27dddf9168bffaf15c.setContent(html_67156aae48fb9b9063fa6a262a379ca3);
+        
+
+        marker_72e765e2e00bc7817d499eea076b5ba5.bindPopup(popup_b6b65e9842361e27dddf9168bffaf15c)
+        ;
+
+        
+    
+    
+            marker_72e765e2e00bc7817d499eea076b5ba5.bindTooltip(
+                `<div>
+                     Beg Léguer – Goas Lagorn • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5442b1468b69c46e7e0e6a7d36e7664b = L.marker(
+                [48.7365, -3.468],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_fc49682080af3504eb290541fb6ee63d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_5442b1468b69c46e7e0e6a7d36e7664b.setIcon(icon_fc49682080af3504eb290541fb6ee63d);
+        
+    
+        var popup_4b374193d212b34ee3afc8e612704c77 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e8e0ce19128951ca5849c2ffe10ce331 = $(`<div id="html_e8e0ce19128951ca5849c2ffe10ce331" style="width: 100.0%; height: 100.0%;"><b>Beg Léguer – Maez an Aod</b><br><b>Coord:</b> 48.736500, -3.468000<br><b>Marée conseillée:</b> Montante, Descendante<br><b>Leurre(s):</b> Surface, Souple<br><i>Bordures rocheuses; souples naturels lents.</i></div>`)[0];
+            popup_4b374193d212b34ee3afc8e612704c77.setContent(html_e8e0ce19128951ca5849c2ffe10ce331);
+        
+
+        marker_5442b1468b69c46e7e0e6a7d36e7664b.bindPopup(popup_4b374193d212b34ee3afc8e612704c77)
+        ;
+
+        
+    
+    
+            marker_5442b1468b69c46e7e0e6a7d36e7664b.bindTooltip(
+                `<div>
+                     Beg Léguer – Maez an Aod • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a977ef06aa5e9ccca869cf3da4698499 = L.marker(
+                [48.7737, -3.5717],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_c79a89f14ee2c7dfcfcc5831a5048573 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_a977ef06aa5e9ccca869cf3da4698499.setIcon(icon_c79a89f14ee2c7dfcfcc5831a5048573);
+        
+    
+        var popup_fbea52f2b68d9259177249495f04540b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b4bdf179766458dcbc2b5e0363c7823b = $(`<div id="html_b4bdf179766458dcbc2b5e0363c7823b" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pors Mabo</b><br><b>Coord:</b> 48.773700, -3.571700<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Souple<br><i>Plateaux faciles d’accès; wader utile par mer calme.</i></div>`)[0];
+            popup_fbea52f2b68d9259177249495f04540b.setContent(html_b4bdf179766458dcbc2b5e0363c7823b);
+        
+
+        marker_a977ef06aa5e9ccca869cf3da4698499.bindPopup(popup_fbea52f2b68d9259177249495f04540b)
+        ;
+
+        
+    
+    
+            marker_a977ef06aa5e9ccca869cf3da4698499.bindTooltip(
+                `<div>
+                     Trébeurden – Pors Mabo • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_78a6e557c1299595238f671e8809f8b5 = L.marker(
+                [48.7653, -3.5582],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_0c443526c6c0fb1561e9069dc50a8f9b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_78a6e557c1299595238f671e8809f8b5.setIcon(icon_0c443526c6c0fb1561e9069dc50a8f9b);
+        
+    
+        var popup_4a31e8111a50f9661358650428a942bf = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d7e8865c8e086e81c02a74bb8bcb11c1 = $(`<div id="html_d7e8865c8e086e81c02a74bb8bcb11c1" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Toëno (tombants)</b><br><b>Coord:</b> 48.765300, -3.558200<br><b>Marée conseillée:</b> Renverse, Descendante<br><b>Leurre(s):</b> Souple, Plongeant<br><i>Tombants près du chenal; shads 10–12 cm.</i></div>`)[0];
+            popup_4a31e8111a50f9661358650428a942bf.setContent(html_d7e8865c8e086e81c02a74bb8bcb11c1);
+        
+
+        marker_78a6e557c1299595238f671e8809f8b5.bindPopup(popup_4a31e8111a50f9661358650428a942bf)
+        ;
+
+        
+    
+    
+            marker_78a6e557c1299595238f671e8809f8b5.bindTooltip(
+                `<div>
+                     Trébeurden – Toëno (tombants) • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f5cd7afa6d0d355d80e7bb5929101510 = L.marker(
+                [48.8276, -3.5067],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_44659d820b26f8367eb9576287111098 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_f5cd7afa6d0d355d80e7bb5929101510.setIcon(icon_44659d820b26f8367eb9576287111098);
+        
+    
+        var popup_b5405b4771deab1bf5d421049a1edf32 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5178bda22b2a67bd2b29dee82f227f09 = $(`<div id="html_5178bda22b2a67bd2b29dee82f227f09" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Pointe du Squewel</b><br><b>Coord:</b> 48.827600, -3.506700<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple<br><i>Rochers et laminaires; surface à l’aube, puis souples.</i></div>`)[0];
+            popup_b5405b4771deab1bf5d421049a1edf32.setContent(html_5178bda22b2a67bd2b29dee82f227f09);
+        
+
+        marker_f5cd7afa6d0d355d80e7bb5929101510.bindPopup(popup_b5405b4771deab1bf5d421049a1edf32)
+        ;
+
+        
+    
+    
+            marker_f5cd7afa6d0d355d80e7bb5929101510.bindTooltip(
+                `<div>
+                     Trégastel – Pointe du Squewel • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_390c4c72228a9279aba908dd4f198585 = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_26b7cc0b549732d00bb4c82db7fb6e80);
+        
+    
+            var icon_912679c5e360c99835197a0f61c85882 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "record", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_390c4c72228a9279aba908dd4f198585.setIcon(icon_912679c5e360c99835197a0f61c85882);
+        
+    
+        var popup_22ec480892e7497fda90963ba77b9356 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_85e564c0d7cbf50779229e27511415a7 = $(`<div id="html_85e564c0d7cbf50779229e27511415a7" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_22ec480892e7497fda90963ba77b9356.setContent(html_85e564c0d7cbf50779229e27511415a7);
+        
+
+        marker_390c4c72228a9279aba908dd4f198585.bindPopup(popup_22ec480892e7497fda90963ba77b9356)
+        ;
+
+        
+    
+    
+            marker_390c4c72228a9279aba908dd4f198585.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Leurre Souple
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_2562fb5adfe53586640dc1ac8ec6442d = L.featureGroup(
+                {}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var marker_7d082db8408b05d83e8f258418dd1fa2 = L.marker(
+                [48.701, -3.5162],
+                {}
+            ).addTo(feature_group_2562fb5adfe53586640dc1ac8ec6442d);
+        
+    
+            var icon_71fc41790ee5b067958233a4b9e1bd43 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "download", "iconColor": "white", "markerColor": "cadetblue", "prefix": "fa"}
+            );
+            marker_7d082db8408b05d83e8f258418dd1fa2.setIcon(icon_71fc41790ee5b067958233a4b9e1bd43);
+        
+    
+        var popup_4bda4af3f021b8061d1ce42a663a99ef = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7f5c590d77fe6c313957816bfd9d8c0d = $(`<div id="html_7f5c590d77fe6c313957816bfd9d8c0d" style="width: 100.0%; height: 100.0%;"><b>Locquirec – Moulin de la Rive</b><br><b>Coord:</b> 48.701000, -3.516200<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Cassures proches; minnows 110–140, shads 10–12 cm.</i></div>`)[0];
+            popup_4bda4af3f021b8061d1ce42a663a99ef.setContent(html_7f5c590d77fe6c313957816bfd9d8c0d);
+        
+
+        marker_7d082db8408b05d83e8f258418dd1fa2.bindPopup(popup_4bda4af3f021b8061d1ce42a663a99ef)
+        ;
+
+        
+    
+    
+            marker_7d082db8408b05d83e8f258418dd1fa2.bindTooltip(
+                `<div>
+                     Locquirec – Moulin de la Rive • Leurre Plongeant
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d7802ff08349ebe3bd2971541b9bff43 = L.marker(
+                [48.7817, -3.5859],
+                {}
+            ).addTo(feature_group_2562fb5adfe53586640dc1ac8ec6442d);
+        
+    
+            var icon_bc6af8285d7a9f0ddb3f3d8fdd2d18ab = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "download", "iconColor": "white", "markerColor": "cadetblue", "prefix": "fa"}
+            );
+            marker_d7802ff08349ebe3bd2971541b9bff43.setIcon(icon_bc6af8285d7a9f0ddb3f3d8fdd2d18ab);
+        
+    
+        var popup_0f0b56fefd3cb12ccf07410e362f688c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1e32535017e8f0cd3dee54b2fd2e12ed = $(`<div id="html_1e32535017e8f0cd3dee54b2fd2e12ed" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Pointe de Bihit</b><br><b>Coord:</b> 48.781700, -3.585900<br><b>Marée conseillée:</b> Montante, Renverse<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Point avancé; surface au clapot, jerkbait coulant si courant.</i></div>`)[0];
+            popup_0f0b56fefd3cb12ccf07410e362f688c.setContent(html_1e32535017e8f0cd3dee54b2fd2e12ed);
+        
+
+        marker_d7802ff08349ebe3bd2971541b9bff43.bindPopup(popup_0f0b56fefd3cb12ccf07410e362f688c)
+        ;
+
+        
+    
+    
+            marker_d7802ff08349ebe3bd2971541b9bff43.bindTooltip(
+                `<div>
+                     Trébeurden – Pointe de Bihit • Leurre Plongeant
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f3745f6ba5b8b5477f4ad06227916f83 = L.marker(
+                [48.7653, -3.5582],
+                {}
+            ).addTo(feature_group_2562fb5adfe53586640dc1ac8ec6442d);
+        
+    
+            var icon_315758375b48742aedcb01d8af5e3594 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "download", "iconColor": "white", "markerColor": "cadetblue", "prefix": "fa"}
+            );
+            marker_f3745f6ba5b8b5477f4ad06227916f83.setIcon(icon_315758375b48742aedcb01d8af5e3594);
+        
+    
+        var popup_d071b5f14d9b890302ccea47630603d0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5f462a905809347e1fd78e81a093d4d8 = $(`<div id="html_5f462a905809347e1fd78e81a093d4d8" style="width: 100.0%; height: 100.0%;"><b>Trébeurden – Toëno (tombants)</b><br><b>Coord:</b> 48.765300, -3.558200<br><b>Marée conseillée:</b> Renverse, Descendante<br><b>Leurre(s):</b> Souple, Plongeant<br><i>Tombants près du chenal; shads 10–12 cm.</i></div>`)[0];
+            popup_d071b5f14d9b890302ccea47630603d0.setContent(html_5f462a905809347e1fd78e81a093d4d8);
+        
+
+        marker_f3745f6ba5b8b5477f4ad06227916f83.bindPopup(popup_d071b5f14d9b890302ccea47630603d0)
+        ;
+
+        
+    
+    
+            marker_f3745f6ba5b8b5477f4ad06227916f83.bindTooltip(
+                `<div>
+                     Trébeurden – Toëno (tombants) • Leurre Plongeant
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5b83164e87c325b4041fd813430f0997 = L.marker(
+                [48.8248, -3.5013],
+                {}
+            ).addTo(feature_group_2562fb5adfe53586640dc1ac8ec6442d);
+        
+    
+            var icon_54a74fd9bec5001aa03fd8f57d8e452f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "download", "iconColor": "white", "markerColor": "cadetblue", "prefix": "fa"}
+            );
+            marker_5b83164e87c325b4041fd813430f0997.setIcon(icon_54a74fd9bec5001aa03fd8f57d8e452f);
+        
+    
+        var popup_199c86899a0d3d9118295bdfef6c8c74 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_84b9edb58e829c2b692ca15b817c64d1 = $(`<div id="html_84b9edb58e829c2b692ca15b817c64d1" style="width: 100.0%; height: 100.0%;"><b>Trégastel – Coz Pors (rochers)</b><br><b>Coord:</b> 48.824800, -3.501300<br><b>Marée conseillée:</b> Montante<br><b>Leurre(s):</b> Surface, Plongeant<br><i>Anses abritées; minnows peu plongeants si eau claire.</i></div>`)[0];
+            popup_199c86899a0d3d9118295bdfef6c8c74.setContent(html_84b9edb58e829c2b692ca15b817c64d1);
+        
+
+        marker_5b83164e87c325b4041fd813430f0997.bindPopup(popup_199c86899a0d3d9118295bdfef6c8c74)
+        ;
+
+        
+    
+    
+            marker_5b83164e87c325b4041fd813430f0997.bindTooltip(
+                `<div>
+                     Trégastel – Coz Pors (rochers) • Leurre Plongeant
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b8ff80ad67d88584e94d96c4279906fe = L.marker(
+                [48.791, -3.5399],
+                {}
+            ).addTo(feature_group_2562fb5adfe53586640dc1ac8ec6442d);
+        
+    
+            var icon_260cc0b4abad6732e38f0efa06f241e1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "download", "iconColor": "white", "markerColor": "cadetblue", "prefix": "fa"}
+            );
+            marker_b8ff80ad67d88584e94d96c4279906fe.setIcon(icon_260cc0b4abad6732e38f0efa06f241e1);
+        
+    
+        var popup_fbcb8a049eb37f59207253ec407bd49e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c07fc131811bcb595aa0d28cc7c5367c = $(`<div id="html_c07fc131811bcb595aa0d28cc7c5367c" style="width: 100.0%; height: 100.0%;"><b>Pleumeur-Bodou – Pont d’Île Grande</b><br><b>Coord:</b> 48.791000, -3.539900<br><b>Marée conseillée:</b> Montante, Renverse, Descendante<br><b>Leurre(s):</b> Surface, Souple, Plongeant<br><i>Multiples têtes selon marée; texan utile.</i></div>`)[0];
+            popup_fbcb8a049eb37f59207253ec407bd49e.setContent(html_c07fc131811bcb595aa0d28cc7c5367c);
+        
+
+        marker_b8ff80ad67d88584e94d96c4279906fe.bindPopup(popup_fbcb8a049eb37f59207253ec407bd49e)
+        ;
+
+        
+    
+    
+            marker_b8ff80ad67d88584e94d96c4279906fe.bindTooltip(
+                `<div>
+                     Pleumeur-Bodou – Pont d’Île Grande • Leurre Plongeant
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_e3e6667782bce7491f97f0b1e0fea861 = L.polyline(
+                [[48.73139, -3.56444], [48.72861, -3.56389], [48.68917, -3.57972], [48.67806, -3.57639], [48.6809, -3.5601], [48.6608, -3.6003], [48.701, -3.5162], [48.728, -3.4828], [48.7365, -3.468], [48.7817, -3.5859], [48.7737, -3.5717], [48.7653, -3.5582], [48.8276, -3.5067], [48.8248, -3.5013], [48.791, -3.5399]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+        
+    
+            var layer_control_2a5147ebeb0e10d26e74a98e9f12cd0b = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_9589f0b074bab2eae3af819697958f62,
+                },
+                overlays :  {
+                    "Mar\u00e9e : Montante" : feature_group_cc7d32020e2e02ebd5746ab15081b7a9,
+                    "Mar\u00e9e : Descendante" : feature_group_3e07b6cb42f40a263f25722471030f3c,
+                    "Mar\u00e9e : Renverse" : feature_group_dd23e62184ba7c8f445741591a2678d1,
+                    "Leurre : Surface" : feature_group_a1d6e9259617255b02cbf6d3d2cd9503,
+                    "Leurre : Souple" : feature_group_26b7cc0b549732d00bb4c82db7fb6e80,
+                    "Leurre : Plongeant" : feature_group_2562fb5adfe53586640dc1ac8ec6442d,
+                },
+            };
+            L.control.layers(
+                layer_control_2a5147ebeb0e10d26e74a98e9f12cd0b.base_layers,
+                layer_control_2a5147ebeb0e10d26e74a98e9f12cd0b.overlays,
+                {"autoZIndex": true, "collapsed": false, "position": "topright"}
+            ).addTo(map_61338bc9effea8beae3b12fb22977d61);
+            feature_group_3e07b6cb42f40a263f25722471030f3c.remove();
+            feature_group_dd23e62184ba7c8f445741591a2678d1.remove();
+            feature_group_a1d6e9259617255b02cbf6d3d2cd9503.remove();
+            feature_group_26b7cc0b549732d00bb4c82db7fb6e80.remove();
+            feature_group_2562fb5adfe53586640dc1ac8ec6442d.remove();
+        
+</script>
+</html>
