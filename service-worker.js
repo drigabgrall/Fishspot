@@ -1,5 +1,5 @@
 // GitHub Pages-friendly relative paths
-const CACHE='fishspots-v1';
+const CACHE='fishspots-v3';
 const APP_ASSETS=['./','./index.html','./styles.css','./app.js','./autoheight.js','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP_ASSETS)))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))))});
